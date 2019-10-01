@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class ProfilePageTests {
@@ -56,8 +57,10 @@ public class ProfilePageTests {
         driver.findElement(By.id("family")).click();
         Thread.sleep(5000);
 
-        System.out.println("Last name of the family verification: " + driver
+        Assert.assertTrue(driver
                 .findElement(By.id("titleprofile")).getText().contains("ShulgaFamily"));
+//        System.out.println("Last name of the family verification: " + driver
+//                .findElement(By.id("titleprofile")).getText().contains("ShulgaFamily"));
 
         // ---- Return to the profile
         driver.findElement(By.id("profile")).click();
@@ -80,7 +83,8 @@ public class ProfilePageTests {
         driver.findElement(By.id("idbtnsaveprofile")).click();
         Thread.sleep(5000);
 
-        System.out.println("Last name was changed: " + driver.findElement(By.linkText("Shulga")).isDisplayed());
+        Assert.assertTrue(driver.findElement(By.linkText("Shulga")).isDisplayed());
+//        System.out.println("Last name was changed: " + driver.findElement(By.linkText("Shulga")).isDisplayed());
 
         driver.quit();
 

@@ -3,26 +3,28 @@ package tests;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 public class LoginPageTests extends tests.TestBase {
 
-
-
-
     @BeforeMethod
     public void initTests() throws InterruptedException {
-
 
         //--- Login to the system ----
         WebElement loginIcon = driver.findElement(By.id("idsignin"));
         loginIcon.click();
         Thread.sleep(2000);
-        System.out.println("We are on the Login window: " + driver
-                .findElement(By.id("clickreg")).getText().contains("registration"));
 
+    }
 
+    @Test
+    public void loginScreenVerificationTest(){
+
+        Assert.assertTrue(driver
+                        .findElement(By.id("clickreg")).getText().contains("registration"),
+                "It is not login screen or there is no 'registration' on login screen");
     }
 
     @Test
@@ -45,6 +47,9 @@ public class LoginPageTests extends tests.TestBase {
         // ---- Usr is on the HomePage for the unauthorized user
         System.out.println("User is on the HomePage unauthorized: " + driver
                 .findElement(By.id("idsignin")).getText().equals("Login"));
+        Assert.assertEquals(driver
+                        .findElement(By.id("idsignin")).getText(),"Login",
+                "Name of the login button is not 'Login'");
 
 
     }
@@ -55,8 +60,11 @@ public class LoginPageTests extends tests.TestBase {
         driver.findElement(By.id("closedsignin")).click();
         Thread.sleep(3000);
         // ---- Usr is on the HomePage for the unauthorized user
-        System.out.println("User is on the HomePage unauthorized: " + driver
-                .findElement(By.id("idsignin")).getText().equals("Login"));
+//        System.out.println("User is on the HomePage unauthorized: " + driver
+//                .findElement(By.id("idsignin")).getText().equals("Login"));
+        Assert.assertEquals(driver
+                        .findElement(By.id("idsignin")).getText(),"Login",
+                "Name of the login button is not 'Login'");
 
 
     }
@@ -66,9 +74,9 @@ public class LoginPageTests extends tests.TestBase {
         WebElement loginField = driver.findElement(By.id("logininput"));
         WebElement passwordField = driver.findElement(By.id("passwordinput"));
         loginField.click();
-        loginField.sendKeys("marinaA");
+        loginField.sendKeys("sashasasha");
         passwordField.click();
-        passwordField.sendKeys("marina1!");
+        passwordField.sendKeys("Sasha111");
 
         //---- Find sign in button and press on it ----
         driver.findElement(By.id("signinrequest")).click();
@@ -78,8 +86,9 @@ public class LoginPageTests extends tests.TestBase {
         WebElement profileIcon = driver.findElement(By.id("profile"));
 
         // ------ Check that we on the HomePage for authorized user---
-        System.out.println("We logged in: "
-                + profileIcon.getAttribute("title").contains("marinaA"));
+        Assert.assertTrue(profileIcon.getAttribute("title").contains("sashasasha"),"ProfileIcon do not contains login");
+//        System.out.println("We logged in: "
+//                + profileIcon.getAttribute("title").contains("marinaA"));
 
 
     }
